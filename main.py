@@ -151,11 +151,19 @@ def new_member(message):
     try:
         f = open('logger.txt', 'a')
         f.write(f"[INFO {datetime.now()}] added new user {message.from_user.id} to chat\n")
-        bot.send_message(message.chat.id, f"Добро пожаловать, {message.from_user.username}\n\n"
-                                          f"Не забудьте ознакомиться с закреплённым сообщением: "
-                                          f'''<a href="https://t.me/mikhaylik_kitchen/156">ссылка на правила</a>\n'''
-                                          f'''На самые популярные вопросы с радостью ответит <a href="https://t.me/mikhaylik_kitchen_bot">Михайлик bot</a>\n\n'''
-                                          f"Приятного общения ☺", parse_mode='html')
+        if message.from_user.username is not None:
+            username = message.from_user.username
+            bot.send_message(message.chat.id, f"Добро пожаловать, {username}\n\n"
+                                              f"Не забудьте ознакомиться с закреплённым сообщением: "
+                                              f'''<a href="https://t.me/mikhaylik_kitchen/156">ссылка на правила</a>\n'''
+                                              f'''На самые популярные вопросы с радостью ответит <a href="https://t.me/mikhaylik_kitchen_bot">Михайлик bot</a>\n\n'''
+                                              f"Приятного общения ☺", parse_mode='html')
+        else:
+            bot.send_message(message.chat.id, f"Добро пожаловать!\n\n"
+                                              f"Не забудьте ознакомиться с закреплённым сообщением: "
+                                              f'''<a href="https://t.me/mikhaylik_kitchen/156">ссылка на правила</a>\n'''
+                                              f'''На самые популярные вопросы с радостью ответит <a href="https://t.me/mikhaylik_kitchen_bot">Михайлик bot</a>\n\n'''
+                                              f"Приятного общения ☺", parse_mode='html')
     except Exception as _ex:
         f.write(f"[ERROR {datetime.now()}] {_ex}\n")
     finally:
